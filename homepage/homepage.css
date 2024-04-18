@@ -1,0 +1,151 @@
+.navbar{
+    background-color: white;
+    border-bottom: 2px solid rgb(115, 111, 111);
+}
+.navbar-brand{
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+}
+.offcanvas-title{
+    font-size: 25px;
+    font-family: 'Times New Roman', Times, serif;
+
+}
+.profile-button{
+    display: flex;
+    text-decoration: none;
+    border: 2px solid black;
+    padding: 6px 6px;
+    border-radius: 100px;
+    justify-content: center;
+    transition: 0.2s background-color;
+}
+.profile-button:hover{
+    background-color: rgb(94, 137, 255);
+}
+
+.navbar-toggler{
+    border: none;
+    font-size: 1.25rem;
+}
+
+.navbar-toggler:focus, .btn-close:focus{
+    box-shadow: none;
+    outline: none;
+}
+
+.nav-link{
+    color: #666777;
+    font-weight: 500;
+    font-size: 18px;
+    position: relative;
+}
+
+.nav-link:hover, .nav-link:active{
+    color: #000;
+}
+
+@media (min-width:768px) {
+
+    .nav-link::before{
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 3px;
+        background-color: rgb(65, 112, 242);
+        visibility: hidden;
+        transition: 0.2s ease-in-out;
+    }
+    
+    .nav-link:hover::before,.nav-link.active::before{
+        width: 100%;
+        visibility: visible;
+    }
+    
+    
+}
+.offcanvas-header .btn-close{
+    margin: 0px;
+}
+
+.navbar2{
+    margin-top: 75px;
+    background-color: rgb(206, 206, 211);
+    height: 30px;
+}
+.navbar2-items{
+    display: flex;
+    width: 100%;
+    list-style-type: none;
+    font-size: 16px;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-top: 5px;
+    
+
+}
+#nav2head{
+    cursor:default;
+    color: #000;
+    
+}
+.navbar2-items li a{
+    color: #000;
+    text-decoration: none;
+    
+}
+.navbar2-link a:hover, .navbar2-link a:active{
+    color: rgb(65, 112, 242);
+    transition: 0.3s color;
+}
+
+@media (min-width:768px) {
+    .nav2-off{
+        display: none;
+    }
+}
+
+@media screen and (max-width:769px) {
+    .navbar2{
+        display: none;
+    }
+    .navbar-nav{
+        border-top: 2px solid #666777;
+    }   
+}
+
+.nav2-off-head{
+    cursor: default;
+    pointer-events: none;
+    font-size: 25px;
+    /*border-bottom: 2px solid #666777;*/
+    border-top: 2px solid #666777;
+}
+.fixed-button {
+    position: fixed;
+    bottom: 60px; /* Adjust as needed */
+    right: 60px; /* Adjust as needed */
+    background-color: #007bff; /* Button background color */
+    color: #fff; /* Button text color */
+    width: 60px; /* Button width */
+    height: 60px; /* Button height */
+    font-size: 35px;
+    padding-bottom: 7px; /* Adjust padding to center the plus symbol vertically */
+    text-align: center; /* Center the plus symbol horizontally */
+    border: none; /* Remove button border */
+    border-radius: 5px; /* Button border radius */
+    text-decoration: none; /* Remove underline from link */
+    z-index: 999; /* Ensure the button is above other content */
+}
+
+
+.fixed-button:hover {
+    background-color: #0056b3; /* Change background color on hover */
+}
+
+
+
