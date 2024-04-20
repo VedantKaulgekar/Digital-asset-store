@@ -46,37 +46,22 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
               <a class="nav-link mx-lg-2 active" aria-current="page" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="cart.php">Cart</a>
+              <a class="nav-link mx-lg-2" href="images.php">Images</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="likedfeed.php">Liked Feed</a>
+              <a class="nav-link mx-lg-2" href="videos.php">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="notifications.php">Notifications</a>
+              <a class="nav-link mx-lg-2" href="3dmodels.php">3d Models</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off-head nav2-off mx-lg-2" href="#">Categories ➤</a>
+              <a class="nav-link mx-lg-2" href="datasets.php">Datasets</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="images.php">Images</a>
+              <a class="nav-link mx-lg-2" href="pdfs.php">Pdfs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="videos.php">Videos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="sounds.php">Sounds</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="3dmodels.php">3D Models</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="datasets.php">Datasets</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="pdfs.php">Pdfs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="codes.php">Codes</a>
+              <a class="nav-link mx-lg-2" href="codes.php">Codes</a>
             </li>
           </ul>
         </div>
@@ -93,20 +78,6 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
             echo '<a href="http://localhost/registration/login-page.php" id="profile-button" class="profile-button"><img src="/Used images/userprofile.png" alt="userprofile" width="25px" height="25px"></a>';
         }
         ?>
-    </div>
-  </nav>
-  <nav class="navbar2">
-    <div>
-      <ul class="navbar2-items">
-        <li id="nav2head">Categories ➤</li>
-        <li class="navbar2-link"><a href="images.php">Images</a></li>
-        <li class="navbar2-link"><a href="videos.php">Videos</a></li>
-        <li class="navbar2-link"><a href="sounds.php">Sounds</a></li>
-        <li class="navbar2-link"><a href="3dmodels.php">3D Models</a></li>
-        <li class="navbar2-link"><a href="datasets.php">Datasets</a></li>
-        <li class="navbar2-link"><a href="pdfs.php">Pdfs</a></li>
-        <li class="navbar2-link"><a href="codes.php">Codes</a></li>
-    </ul>
     </div>
   </nav>
   <?php
@@ -191,6 +162,9 @@ if (mysqli_num_rows($result) > 0) {
                         flex-direction: column;
                         align-items: center;
                         padding: 20px;
+                        margin-top: 70px; /* Adjust margin-top to create space for navbar */
+                        padding: 20px;
+                        text-align: center;
                     }
                     .product-image {
                         width: 300px;
@@ -248,40 +222,25 @@ if (mysqli_num_rows($result) > 0) {
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" aria-current="page" href="homepage.php">Home</a>
+              <a class="nav-link mx-lg-2 active" aria-current="page" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="cart.php">Cart</a>
+              <a class="nav-link mx-lg-2" href="images.php">Images</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="likedfeed.php">Liked Feed</a>
+              <a class="nav-link mx-lg-2" href="videos.php">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="notifications.php">Notifications</a>
+              <a class="nav-link mx-lg-2" href="3dmodels.php">3d Models</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off-head nav2-off mx-lg-2" href="#">Categories ➤</a>
+              <a class="nav-link mx-lg-2" href="datasets.php">Datasets</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="images.php">Images</a>
+              <a class="nav-link mx-lg-2" href="pdfs.php">Pdfs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="videos.php">Videos</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="sounds.php">Sounds</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="3dmodels.php">3D Models</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="datasets.php">Datasets</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="pdfs.php">Pdfs</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link nav2-off mx-lg-2" href="codes.php">Codes</a>
+              <a class="nav-link mx-lg-2" href="codes.php">Codes</a>
             </li>
           </ul>
         </div>
@@ -300,20 +259,7 @@ if (mysqli_num_rows($result) > 0) {
         ?>
     </div>
   </nav>
-  <nav class="navbar2">
-    <div>
-      <ul class="navbar2-items">
-        <li id="nav2head">Categories ➤</li>
-        <li class="navbar2-link"><a href="images.php">Images</a></li>
-        <li class="navbar2-link"><a href="videos.php">Videos</a></li>
-        <li class="navbar2-link"><a href="sounds.php">Sounds</a></li>
-        <li class="navbar2-link"><a href="3dmodels.php">3D Models</a></li>
-        <li class="navbar2-link"><a href="datasets.php">Datasets</a></li>
-        <li class="navbar2-link"><a href="pdfs.php">Pdfs</a></li>
-        <li class="navbar2-link"><a href="codes.php">Codes</a></li>
-    </ul>
-    </div>
-  </nav>
+  
   <?php
 include \'D:\PBL Website\registration\partials\_dbconnect.php\';
 if ($conn) {
@@ -346,8 +292,6 @@ if ($conn) {
                         <p>Description: ' . $description . '</p>
                     </div>
                     <div class="product-actions">
-                        <button id="likeButton">Like</button>
-                        <button id="addtocartButton">Add to cart</button>
                         <?php
       // Include the login-page.php file
         // Check if the user is logged in
