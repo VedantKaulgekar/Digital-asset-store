@@ -17,7 +17,7 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Art</title>
+  <title>Pixel Art - Home</title>
   <link rel="icon" type="image/x-icon" href="/Used images/logo.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -63,6 +63,9 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
             <li class="nav-item">
               <a class="nav-link mx-lg-2" href="codes.php">Codes</a>
             </li>
+            <li class="nav-item">
+              <a class="nav-link mx-lg-2" href="sounds.php">Sounds</a>
+            </li>
           </ul>
         </div>
       </div>
@@ -85,29 +88,18 @@ include 'D:\PBL Website\registration\partials\_dbconnect.php';
 if ($conn) {
     if ($started) {
         // Check user type from the database
-        $username = $_SESSION['username']; // Assuming username is stored in the session
-        $sql = "SELECT usertype FROM users WHERE username='$username'";
-        $result = mysqli_query($conn, $sql);
-        if ($result) {
-            $row = mysqli_fetch_assoc($result);
-            $userType = $row['usertype'];
-
             // If user type is 'creator', display the upload button
-            if ($userType === 'creator') {
-                echo '<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>';
-            }
-        } else {
-            echo "Error executing query: " . mysqli_error($conn);
-        }
+            echo '<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>';
+        } 
     }
-} else {
+else {
     echo "Error establishing database connection";
 }
 ?>
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
 
-$sql = "SELECT contentid, content, name, description, `cover image`, likes, downloads, uploadedby FROM uploads";
+$sql = "SELECT contentid, content, name, description, `cover image`, uploadedby FROM uploads";
 $result = mysqli_query($conn2, $sql);
 
 if (mysqli_num_rows($result) > 0) {
@@ -271,11 +263,7 @@ if ($conn) {
         if ($result) {
             $row = mysqli_fetch_assoc($result);
             $userType = $row[\'usertype\'];
-
-            // If user type is \'creator\', display the upload button
-            if ($userType === \'creator\') {
-                echo \'<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>\';
-            }
+            echo \'<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>\';
         } else {
             echo "Error executing query: " . mysqli_error($conn);
         }
@@ -329,10 +317,6 @@ if ($conn) {
                     <h3><?php echo $name; ?></h3>
                     <p class="description"><?php echo $description; ?></p>
                     <p class="uploaded-by">Uploaded by: <?php echo $uploadedBy; ?></p>
-                    <div class="content-details">
-                        <p class="likes">Likes: <?php echo $likes ?></p>
-                        <p class="downloads">Downloads: <?php echo $downloads ?></p>
-                    </div>
                 </div>
             </a>
         </div>
@@ -403,12 +387,6 @@ if ($conn) {
     flex-direction: column;
     justify-content: space-between;
     padding: 10px;
-}
-
-.content-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
 

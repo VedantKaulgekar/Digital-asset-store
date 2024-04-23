@@ -17,11 +17,11 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Art - Datasets</title>
+  <title>Pixel Art - Personal Feed</title>
   <link rel="icon" type="image/x-icon" href="/Used images/logo.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="homepage.css">
+  <link rel="stylesheet" href="\homepage\homepage.css">
 </head>
 
 <body>
@@ -43,28 +43,28 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
         <div class="offcanvas-body">
           <ul class="navbar-nav justify-content-center flex-grow-1 pe-3">
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 " aria-current="page" href="homepage.php">Home</a>
+              <a class="nav-link mx-lg-2 " aria-current="page" href="../homepage/homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="images.php">Images</a>
+              <a class="nav-link mx-lg-2" href="../homepage/images.php">Images</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="videos.php">Videos</a>
+              <a class="nav-link mx-lg-2" href="../homepage/videos.php">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 " href="3dmodels.php">3d Models</a>
+              <a class="nav-link mx-lg-2" href="../homepage/3dmodels.php">3d Models</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 active" href="datasets.php">Datasets</a>
+              <a class="nav-link mx-lg-2" href="../homepage/datasets.php">Datasets</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="pdfs.php">Pdfs</a>
+              <a class="nav-link mx-lg-2" href="../homepage/pdfs.php">Pdfs</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="codes.php">Codes</a>
+              <a class="nav-link mx-lg-2" href="../homepage/codes.php">Codes</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="sounds.php">Sounds</a>
+              <a class="nav-link mx-lg-2" href="../homepage/sounds.php">Sounds</a>
             </li>
           </ul>
         </div>
@@ -83,24 +83,28 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
         ?>
     </div>
   </nav>
+  <div class="container" style="margin-top: 75px;">
+    <h1 class="text-center">Personal Feed</h1>
+  </div>
   <?php
 include 'D:\PBL Website\registration\partials\_dbconnect.php';
 if ($conn) {
-  if ($started) {
-      // Check user type from the database
-          // If user type is 'creator', display the upload button
-          echo '<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>';
-      } 
-  }
+    if ($started) {
+        // Check user type from the database
+            // If user type is 'creator', display the upload button
+            echo '<a href="http://localhost/uploads/upload-page.php" class="fixed-button" id="uploadbtn">+</a>';
+        } 
+    }
 else {
-  echo "Error establishing database connection";
+    echo "Error establishing database connection";
 }
 ?>
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
+$username = $_SESSION['username'];
+$sql2 = "SELECT contentid, content, name, description, `cover image`, uploadedby FROM uploads WHERE uploadedby='$username'";
 
-$sql = "SELECT contentid, content, name, description, `cover image`, uploadedby FROM uploads WHERE type='dataset'";
-$result = mysqli_query($conn2, $sql);
+$result = mysqli_query($conn2, $sql2);
 
 if (mysqli_num_rows($result) > 0) {
     echo '<div class="content-container">';
@@ -113,14 +117,10 @@ if (mysqli_num_rows($result) > 0) {
         $content = $row['content'];
 
         // Check if product display page exists
-        $productPagePath = 'content_details_' . $contentId . '.php'; // Valid file name
+        $productPagePath = '../content_details_' . $contentId . '.php'; // Valid file name
         if (!file_exists($productPagePath)) {
             // If product display page does not exist, create it
             
-
-
-
-
             // Write content to product display page
             if (file_put_contents($productPagePath, $productPageContent) === false) {
                 // If file creation fails, display an error message
@@ -130,6 +130,17 @@ if (mysqli_num_rows($result) > 0) {
         }
 
         ?>
+        <?php
+        if(isset($_POST['delete_content'])) {
+            $contentIdToDelete = $_POST['content_id'];
+            // Your SQL query to delete the content from the database
+            $deleteQuery = "DELETE FROM uploads WHERE contentid = $contentIdToDelete";
+            if(mysqli_query($conn2, $deleteQuery)) {
+                echo "Content deleted successfully.";
+            }
+        }
+        ?>
+
         <div class="content-item">
             <a href='<?php echo $productPagePath; ?>' class="content-link">
                 <img src='/Used images/<?php echo $thumbnail; ?>' alt='<?php echo $name; ?>' class="content-image">
@@ -137,6 +148,10 @@ if (mysqli_num_rows($result) > 0) {
                     <h3><?php echo $name; ?></h3>
                     <p class="description"><?php echo $description; ?></p>
                     <p class="uploaded-by">Uploaded by: <?php echo $uploadedBy; ?></p>
+                    <form method="post">
+                        <button type="submit" name="delete_content" class="btn btn-danger">Delete</button>
+                        <input type="hidden" name="content_id" value="<?php echo $contentId; ?>">
+                    </form>
                 </div>
             </a>
         </div>
@@ -155,7 +170,7 @@ if (mysqli_num_rows($result) > 0) {
 .content-container{
   display: flex;
   flex-wrap: wrap;
-  margin-top:100px;
+  margin-top:30px;
   gap:10px;
   justify-content:center;
 }

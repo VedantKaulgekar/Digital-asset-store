@@ -6,7 +6,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     $username = $_POST["username"];
     $password = $_POST["password"];
     $cpassword = $_POST["cpassword"];
-    $usertype = $_POST["usertype"];
+    $bio = $_POST["bio"];
     $existsSQL = "SELECT * From `users` WHERE username = '$username' ";
     $result = mysqli_query($conn,$existsSQL);
     $num_exist_rows = mysqli_num_rows($result);
@@ -18,7 +18,7 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
     }
     
     if(($password==$cpassword) && $exists==FALSE){
-        $sql ="INSERT INTO `users` (`email`, `username`, `password`, `usertype`) VALUES ('$email', '$username', '$password', '$usertype')";
+        $sql ="INSERT INTO `users` (`email`, `username`, `password`, `bio`) VALUES ('$email', '$username', '$password', '$bio')";
 
         $result = mysqli_query($conn,$sql);
         if($result){
@@ -74,9 +74,8 @@ if($_SERVER["REQUEST_METHOD"]=="POST"){
                 <input type="password" name="cpassword" class="form-control" id="exampleInputConfirmPassword1">
             </div>
             <div class="mb-3">
-                <label for="exampleInputConfirmPassword1" class="form-label" id="usertype" name="Usertype">Join As</label>
-                <input type="radio" name="usertype" value="creator" id="exampleInputUsertype"> Creator
-                <input type="radio" name="usertype"  value="explorer" id="exampleInputUsertype"> Explorer
+                <label for="exampleInputBio1" class="form-label">Bio</label>
+                <input type="text" name="bio" class="form-control" id="exampleInputBio1" aria-describedby="emailHelp">
             </div>
             <div class="mt-3">
                     <p id="acc">
