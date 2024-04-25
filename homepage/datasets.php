@@ -71,10 +71,10 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
               <a class="nav-link mx-lg-2" href="videos.php">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 active" href="3dmodels.php">3d Models</a>
+              <a class="nav-link mx-lg-2" href="3dmodels.php">3d Models</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="datasets.php">Datasets</a>
+              <a class="nav-link mx-lg-2 active" href="datasets.php">Datasets</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mx-lg-2" href="pdfs.php">Pdfs</a>
