@@ -17,11 +17,30 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Art - Images</title>
+  <title>Pixel Art - 3d Models</title>
   <link rel="icon" type="image/x-icon" href="/Used images/logo.png">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
     integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
   <link rel="stylesheet" href="homepage.css">
+  <style>
+        /* Additional CSS for Masonry */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 100px;
+        }
+
+        .content-item {
+            width: 20%; /* Adjust width as needed */
+            margin-bottom: 20px;
+        }
+
+        .content-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
 </head>
 
 <body>
@@ -46,13 +65,13 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
               <a class="nav-link mx-lg-2 " aria-current="page" href="homepage.php">Home</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2 active" href="images.php">Images</a>
+              <a class="nav-link mx-lg-2" href="images.php">Images</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mx-lg-2" href="videos.php">Videos</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link mx-lg-2" href="3dmodels.php">3d Models</a>
+              <a class="nav-link mx-lg-2 active" href="3dmodels.php">3d Models</a>
             </li>
             <li class="nav-item">
               <a class="nav-link mx-lg-2" href="datasets.php">Datasets</a>
@@ -83,6 +102,7 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
         ?>
     </div>
   </nav>
+  <div class = "container">
   <?php
 include 'D:\PBL Website\registration\partials\_dbconnect.php';
 if ($conn) {
@@ -96,6 +116,7 @@ else {
   echo "Error establishing database connection";
 }
 ?>
+<div class="grid-container" id="content-grid">
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
 
@@ -147,80 +168,61 @@ if (mysqli_num_rows($result) > 0) {
     echo "No content available.";
 }
 ?>
+</div>
 
+
+  </div>
+  
 
 
 <style>
   /* Add this CSS to your existing styles */
-.content-container{
-  display: flex;
-  flex-wrap: wrap;
-  margin-top:100px;
-  gap:10px;
-  justify-content:center;
-}
-.content-overlay h3 {
-    font-size: 18px; /* Decrease font size for name */
-}
+  .content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+        }
 
-.content-overlay .description {
-    font-size: 14px; /* Decrease font size for description */
-}
+        .content-overlay h3,
+        .content-overlay .description,
+        .content-overlay .uploaded-by {
+            font-size: 14px; /* Adjust font size */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0;
+            padding: 5px;
+        }
 
-.content-overlay .uploaded-by {
-    font-size: 12px; /* Decrease font size for uploaded by */
-    margin-top: 5px; /* Add margin */
-}
-
-.content-item {
-    position: relative;
-    max-width: 20%; /* Adjust as needed */
-    min-width: 20%;
-}
-
-.content-link {
-    display: block;
-    position: relative;
-}
-
-.content-image {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.content-item:hover .content-overlay {
-    opacity: 1;
-}
-
-.content-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.content-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
+        .content-item:hover .content-overlay {
+            opacity: 1;
+        }
 </style>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var grid = document.getElementById("content-grid");
+            var masonry = new Masonry(grid, {
+                itemSelector: '.content-item',
+                columnWidth: '.content-item',
+                gutter: 20
+            });
+        });
+    </script>
+  
 </body>
 
 </html>

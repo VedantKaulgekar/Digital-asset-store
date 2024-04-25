@@ -1,29 +1,107 @@
 <?php
 error_reporting(E_ERROR | E_PARSE);//To hide the warnings
 
-      // Include the login-page.php file
-        // Check if the user is logged in
-        session_start();
-        if($_SESSION['loggedin']) {
-          $started = true;
-            // If logged in, redirect to profile page
-        } else {
-          $started = false;
-        }
-        ?>
+// Include the login-page.php file
+// Check if the user is logged in
+session_start();
+if($_SESSION['loggedin']) {
+  $started = true;
+    // If logged in, redirect to profile page
+} else {
+  $started = false;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pixel Art - Personal Feed</title>
-  <link rel="icon" type="image/x-icon" href="/Used images/logo.png">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-  <link rel="stylesheet" href="\homepage\homepage.css">
-</head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixel Art - Personal Feed</title>
+    <link rel="icon" type="image/x-icon" href="/Used images/logo.png">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="\homepage\homepage.css">
+    <style>
+        /* Additional CSS for Masonry */
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 30px;
+            gap: 10px;
+            justify-content: center;
+        }
 
+        .content-item {
+            position: relative;
+            max-width: 20%; /* Adjust as needed */
+            min-width: 20%;
+        }
+
+        .content-link {
+            display: block;
+            position: relative;
+        }
+
+        .content-image {
+            width: 100%;
+            height: auto;
+            transition: transform 0.3s ease;
+        }
+
+        .content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 10px;
+        }
+
+        .content-overlay h3,
+        .content-overlay .description,
+        .content-overlay .uploaded-by {
+            font-size: 14px; /* Adjust font size */
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            margin: 0;
+            padding: 5px;
+        }
+
+        .content-item:hover .content-overlay {
+            opacity: 1;
+        }
+
+        .content-details {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .grid-container {
+            display: flex;
+            flex-wrap: wrap;
+            margin-top: 100px;
+        }
+
+        .content-item {
+            width: 20%; /* Adjust width as needed */
+            margin-bottom: 20px;
+        }
+
+        .content-item img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+    </style>
+</head>
 <body>
   <nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
@@ -86,6 +164,7 @@ error_reporting(E_ERROR | E_PARSE);//To hide the warnings
   <div class="container" style="margin-top: 75px;">
     <h1 class="text-center">Personal Feed</h1>
   </div>
+  <div class="container">
   <?php
 include 'D:\PBL Website\registration\partials\_dbconnect.php';
 if ($conn) {
@@ -99,6 +178,7 @@ else {
     echo "Error establishing database connection";
 }
 ?>
+<div class="grid-container" id="content-grid">
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
 $username = $_SESSION['username'];
@@ -107,7 +187,7 @@ $sql2 = "SELECT contentid, content, name, description, `cover image`, uploadedby
 $result = mysqli_query($conn2, $sql2);
 
 if (mysqli_num_rows($result) > 0) {
-    echo '<div class="content-container">';
+  echo '<div class="content-container">';
     foreach ($result as $row) {
         $contentId = $row['contentid'];
         $name = $row['name'];
@@ -135,9 +215,12 @@ if (mysqli_num_rows($result) > 0) {
             $contentIdToDelete = $_POST['content_id'];
             // Your SQL query to delete the content from the database
             $deleteQuery = "DELETE FROM uploads WHERE contentid = $contentIdToDelete";
-            if(mysqli_query($conn2, $deleteQuery)) {
-                echo "Content deleted successfully.";
-            }
+            $result2=mysqli_query($conn2, $deleteQuery);
+            echo '<div class="alert alert-warning alert-dismissible fade show fixed-top" role="alert" z-index: 1050;>
+            <strong>Deleted successfully!</strong> The changes will be visible after reloading the page.
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        ';
         }
         ?>
 
@@ -157,85 +240,32 @@ if (mysqli_num_rows($result) > 0) {
         </div>
         <?php
     }
-    echo '</div>'; // Close content-container
+    echo '</div>'; // Close grid-container
 } else {
     echo "No content available.";
 }
 ?>
 
+</div>
 
+  </div>
+  
 
-<style>
-  /* Add this CSS to your existing styles */
-.content-container{
-  display: flex;
-  flex-wrap: wrap;
-  margin-top:30px;
-  gap:10px;
-  justify-content:center;
-}
-.content-overlay h3 {
-    font-size: 18px; /* Decrease font size for name */
-}
-
-.content-overlay .description {
-    font-size: 14px; /* Decrease font size for description */
-}
-
-.content-overlay .uploaded-by {
-    font-size: 12px; /* Decrease font size for uploaded by */
-    margin-top: 5px; /* Add margin */
-}
-
-.content-item {
-    position: relative;
-    max-width: 20%; /* Adjust as needed */
-    min-width: 20%;
-}
-
-.content-link {
-    display: block;
-    position: relative;
-}
-
-.content-image {
-    width: 100%;
-    height: auto;
-    transition: transform 0.3s ease;
-}
-
-.content-item:hover .content-overlay {
-    opacity: 1;
-}
-
-.content-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.7);
-    color: white;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-}
-
-.content-details {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-
-</style>
-
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
     integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
     crossorigin="anonymous"></script>
-</body>
 
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script>
+        document.addEventListener("DOMContentLoaded", function () {
+            var grid = document.getElementById("content-grid");
+            var masonry = new Masonry(grid, {
+                itemSelector: '.content-item',
+                columnWidth: '.content-item',
+                gutter: 20
+            });
+        });
+    </script>
+  
+</body>
 </html>

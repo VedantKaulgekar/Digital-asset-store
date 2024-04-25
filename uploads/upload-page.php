@@ -3,27 +3,28 @@ $showAlert = false;
 session_start();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     include '_dbconnect2.php';
-    $name = $_POST["name"];
-    $type = $_POST["type"];
-    $content = $_POST["content"];
-    $description = $_POST["description"];
-    $coverImage = "";
-    $likes = 0;
+    // Escape special characters in the input values
+$name = mysqli_real_escape_string($conn2, $_POST["name"]);
+$type = mysqli_real_escape_string($conn2, $_POST["type"]);
+$content = mysqli_real_escape_string($conn2, $_POST["content"]);
+$description = mysqli_real_escape_string($conn2, $_POST["description"]);
+$coverImage = "";
 
-    // Check if upload type is not image
-    if ($type !== "image") {
-        // If upload type is not image, get the cover image from the form
-        $coverImage = $_POST["thumbnail"];
-    } else {
-        // If upload type is image, set the cover image to the uploaded image itself
-        $coverImage = $content;
-    }
+// Check if upload type is not image
+if ($type !== "image") {
+    // If upload type is not image, get the cover image from the form
+    $coverImage = mysqli_real_escape_string($conn2, $_POST["thumbnail"]);
+} else {
+    // If upload type is image, set the cover image to the uploaded image itself
+    $coverImage = $content;
+}
 
-    // Get the username of the logged-in user from the session
-    $uploadedBy = $_SESSION['username'];
+// Get the username of the logged-in user from the session
+$uploadedBy = $_SESSION['username'];
 
-    $sql = "INSERT INTO `uploads` (`name`, `type`, `content`, `description`, `cover image`, `likes`, `uploadedby`) 
-            VALUES ('$name', '$type', '$content', '$description', '$coverImage', $likes, '$uploadedBy')";
+// Build the SQL query with escaped values
+$sql = "INSERT INTO `uploads` (`name`, `type`, `content`, `description`, `cover image`, `uploadedby`) 
+        VALUES ('$name', '$type', '$content', '$description', '$coverImage', '$uploadedBy')";
     $result = mysqli_query($conn2, $sql);
     if ($result) {
         $showAlert = true;
@@ -84,11 +85,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
             <div class = "mb-3" id="thumbnailInput" style = "display: none;">
                 <label for="file">Cover image</label>
-                <input type="file" class="form-control" id="exampleInputcontent1" accept = " .jpg, .jpeg" id="thumbnail" name="thumbnail">
+                <input type="file" class="form-control" id="exampleInputcontent1" accept = " .jpg, .jpeg, .png" id="thumbnail" name="thumbnail">
             </div>
             <div class="mb-3">
                 <label for="exampleInputcontent1" class="form-label" id="content" name="content">Content</label>
-                <input type="file" name="content" class="form-control" id="exampleInputcontent1" accept = " .jpg, .jpeg, .png, .txt, .pdf, .csv, .docx, .obj, .stl, .mp4, .mp3, .pptx, .xlsx, .py, .cpp, .html, .php, .css, .js">
+                <input type="file" name="content" class="form-control" id="exampleInputcontent1" accept = " .jpg, .jpeg, .png, .txt, .pdf, .csv, .docx, .obj, .stl, .glb, .fbx, .gltf, .usdz, .mp4, .mp3, .pptx, .xlsx, .py, .cpp, .html, .php, .css, .js">
             </div>
             <div class="mb-3">
                 <label for="exampleDescription1" class="form-label" id="description" name="Description">Description</label>
