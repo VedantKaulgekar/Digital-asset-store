@@ -63,6 +63,15 @@ if($_SESSION['loggedin']) {
             justify-content: space-between;
             padding: 10px;
         }
+        .content-type {
+          position: absolute; /* Position the badge absolutely */
+          top: 10px; /* Adjust top position as needed */
+          right: 10px; /* Adjust right position as needed */
+          font-size: 12px; /* Adjust font size as needed */
+          padding: 4px 8px; /* Adjust padding as needed */
+          border-radius: 4px; /* Adjust border radius as needed */
+          color: white; /* Set badge text color */
+        }
 
         .content-overlay h3,
         .content-overlay .description,
@@ -182,7 +191,7 @@ else {
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
 $username = $_SESSION['username'];
-$sql2 = "SELECT contentid, content, name, description, `cover image`, uploadedby FROM uploads WHERE uploadedby='$username'";
+$sql2 = "SELECT contentid, type, content, name, description, `cover image`, uploadedby FROM uploads WHERE uploadedby='$username'";
 
 $result = mysqli_query($conn2, $sql2);
 
@@ -195,6 +204,7 @@ if (mysqli_num_rows($result) > 0) {
         $thumbnail = $row['cover image'];
         $uploadedBy = $row['uploadedby'];
         $content = $row['content'];
+        $type = $row['type'];
 
         // Check if product display page exists
         $productPagePath = '../content_details_' . $contentId . '.php'; // Valid file name
@@ -231,6 +241,7 @@ if (mysqli_num_rows($result) > 0) {
                     <h3><?php echo $name; ?></h3>
                     <p class="description"><?php echo $description; ?></p>
                     <p class="uploaded-by">Uploaded by: <?php echo $uploadedBy; ?></p>
+                    <span class="badge bg-primary content-type"><?php echo $type; ?></span>
                     <form method="post">
                         <button type="submit" name="delete_content" class="btn btn-danger">Delete</button>
                         <input type="hidden" name="content_id" value="<?php echo $contentId; ?>">

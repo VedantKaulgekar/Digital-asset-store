@@ -120,7 +120,7 @@ else {
 <?php
 include 'D:\PBL Website\uploads\_dbconnect2.php';
 
-$sql = "SELECT contentid, content, name, description, `cover image`, uploadedby FROM uploads";
+$sql = "SELECT contentid, type, content, name, description, `cover image`, uploadedby FROM uploads";
 $result = mysqli_query($conn2, $sql);
 
 if (mysqli_num_rows($result) > 0) {
@@ -134,6 +134,7 @@ if (mysqli_num_rows($result) > 0) {
         $downloads = $row['downloads'];
         $uploadedBy = $row['uploadedby'];
         $content = $row['content'];
+        $type = $row['type'];
 
         // Check if product display page exists
         $productPagePath = 'content_details_' . $contentId . '.php'; // Valid file name
@@ -178,6 +179,7 @@ if (mysqli_num_rows($result) > 0) {
                         margin-top: 70px; /* Adjust margin-top to create space for navbar */
                         padding: 20px;
                         text-align: center;
+                        border: 2px solid black;
                     }
                     .product-image {
                         width: 300px;
@@ -331,6 +333,7 @@ else {
                     <h3><?php echo $name; ?></h3>
                     <p class="description"><?php echo $description; ?></p>
                     <p class="uploaded-by">Uploaded by: <?php echo $uploadedBy; ?></p>
+                    <span class="badge bg-primary content-type"><?php echo $type; ?></span>
                 </div>
             </a>
         </div>
@@ -363,6 +366,15 @@ else {
             flex-direction: column;
             justify-content: space-between;
             padding: 10px;
+        }
+        .content-type {
+          position: absolute; /* Position the badge absolutely */
+          top: 10px; /* Adjust top position as needed */
+          right: 10px; /* Adjust right position as needed */
+          font-size: 12px; /* Adjust font size as needed */
+          padding: 4px 8px; /* Adjust padding as needed */
+          border-radius: 4px; /* Adjust border radius as needed */
+          color: white; /* Set badge text color */
         }
 
         .content-overlay h3,

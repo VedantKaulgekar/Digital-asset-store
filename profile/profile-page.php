@@ -99,6 +99,7 @@ else {
 <?php
     session_start();
     include '..\\registration\\partials\\_dbconnect.php'; // Change the path as needed
+    include 'D:\PBL Website\uploads\_dbconnect2.php';
 
     if(isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true){
         $username = $_SESSION['username'];
@@ -107,8 +108,10 @@ else {
             if(isset($_POST['delete_account'])) {
                 // Delete account
                 $sql = "DELETE FROM users WHERE username='$username'";
+                $sql2 = "DELETE FROM uploads WHERE uploadedby='$username'";
                 $result = mysqli_query($conn, $sql);
-                if($result) {
+                $result2 = mysqli_query($conn2, $sql2);
+                if($result && $result2) {
                     session_destroy();
                     header("location:http://localhost/homepage/homepage.php"); // Redirect to home page after deleting account
                     exit();
@@ -143,6 +146,13 @@ else {
                     $email = $row['email'];
                     ?>
                     <p style="font-size:30px;">Email: <?php echo $email; ?></p>
+                    <?php
+                    $bio_sql = "SELECT bio FROM users WHERE username='$username'";
+                    $bio_result = mysqli_query($conn, $bio_sql);
+                    $row = mysqli_fetch_assoc($bio_result);
+                    $bio = $row['bio'];
+                    ?>
+                    <p style="font-size:25px;">Bio: <?php echo $bio; ?></p>
                 </div>
 
                 <!-- Edit profile and view personal feed section -->
