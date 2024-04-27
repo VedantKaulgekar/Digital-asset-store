@@ -132,7 +132,7 @@ else {
     ?>
 
 <div class="container-fluid" style="margin-top:85px;">
-        <div class="center-content">
+        <div class="center-content" style="border: 2px solid black; padding:10px;">
             <div>
                 <!-- User details section -->
                 <div class="user-details">
@@ -186,11 +186,14 @@ else {
     display:flex;
     justify-content:center;
     align-items:center;
+    
+    
   }
 .edit-options{
     display:flex;
     justify-content: center;
     gap: 10px;
+    
 }
 h2{
     display:flex;
